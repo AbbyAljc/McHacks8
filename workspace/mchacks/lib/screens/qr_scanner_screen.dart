@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mchacks/widgets/app_drawer.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:qrscan/qrscan.dart' as scanner;
 
@@ -8,11 +9,16 @@ class QRScannerScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: TextButton(
-          child: Text('Scan QR'),
-          onPressed: () => _scan(),
+      drawer: AppDrawer(),
+      appBar: AppBar(
+        title: const Text('QR Scanner'),
+      ),
+      body: Container(),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(
+          Icons.qr_code,
         ),
+        onPressed: () => _scan(),
       ),
     );
   }

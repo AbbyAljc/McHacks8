@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mchacks/provider/prescription.dart';
+import 'package:mchacks/screens/history_screen.dart';
 import 'package:provider/provider.dart';
 
 import '../provider/auth.dart';
@@ -15,7 +17,7 @@ class AppDrawer extends StatelessWidget {
           ),
           Divider(),
           ListTile(
-            leading: Icon(Icons.shopping_basket),
+            leading: Icon(Icons.qr_code),
             title: Text('QR Scanner'),
             onTap: () {
               Navigator.of(context).pushReplacementNamed('/');
@@ -23,15 +25,15 @@ class AppDrawer extends StatelessWidget {
           ),
           Divider(),
           ListTile(
-            leading: Icon(Icons.payment),
+            leading: Icon(Icons.history),
             title: Text('Prescriptions'),
             onTap: () {
-              // Navigator.of(context).pushReplacementNamed(OrdersScreen.routeName);
+              Navigator.of(context).pushReplacementNamed(HistoryScreen.routeName);
             },
           ),
           Divider(),
           ListTile(
-            leading: Icon(Icons.edit),
+            leading: Icon(Icons.account_circle),
             title: Text('Profile'),
             onTap: () {
               // Navigator.of(context)
