@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mchacks/screens/auth_screen.dart';
+import 'package:mchacks/screens/qr_scanner_screen.dart';
 import 'package:provider/provider.dart';
 
 import './provider/auth.dart';
@@ -24,11 +25,7 @@ class PocketPrescription extends StatelessWidget {
               fontFamily: 'Lato',
             ),
             home: auth.isAuth
-                ? Scaffold(
-                    body: Center(
-                      child: Text('Help'),
-                    ),
-                  )
+                ? QRScannerScreen()
                 : AuthScreen(),
             routes: {
               // CartScreen.routeName: (ctx) => CartScreen(),
