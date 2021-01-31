@@ -88,7 +88,6 @@ class MainApp extends StatelessWidget {
               PrescriptionDetailScreen.routeName: (ctx) =>
                   PrescriptionDetailScreen(),
               AuthorizedDataHandlers.routeName: (ctx) => AuthorizedDataHandlers(),
-
             },
           ),
         ));
