@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mchacks/provider/users.dart';
 import 'package:mchacks/widgets/app_drawer.dart';
 import 'package:mchacks/widgets/prescription_list.dart';
+import 'package:mchacks/widgets/qr_scanner.dart';
 import 'package:mchacks/widgets/user_list.dart';
 import 'package:provider/provider.dart';
 
@@ -47,6 +48,7 @@ class _AuthorizedDataHandlersState extends State<AuthorizedDataHandlers> {
         title: const Text('Authorized Data Access'),
       ),
       body: _isLoading ? SplashScreen() : UserList(),
+      floatingActionButton: QRScanButton(),
     );
   }
 }

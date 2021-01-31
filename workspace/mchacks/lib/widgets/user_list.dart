@@ -15,7 +15,7 @@ class UserList extends StatelessWidget {
     return Column(
       children: <Widget>[
         SizedBox(height: 10),
-        HorizontalOrLine(height: 10, label: "Active"),
+        HorizontalOrLine(height: 10, label: "Authorized Users"),
         Expanded(
           flex: 1,
           child: ListView.builder(

@@ -6,6 +6,7 @@ import 'package:mchacks/widgets/app_drawer.dart';
 import 'package:mchacks/widgets/horizontal_divider.dart';
 import 'package:mchacks/widgets/prescription_list.dart';
 import 'package:mchacks/widgets/prescription_tile.dart';
+import 'package:mchacks/widgets/qr_scanner.dart';
 import 'package:provider/provider.dart';
 
 class HistoryScreen extends StatefulWidget {
@@ -49,6 +50,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
         title: const Text('Prescriptions'),
       ),
       body: _isLoading ? SplashScreen() : PrescriptionList(),
+      floatingActionButton: QRScanButton(),
     );
   }
 }

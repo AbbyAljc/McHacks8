@@ -61,6 +61,29 @@ class Users with ChangeNotifier {
   }
 
   void removeAccess(String doctorId) async {
+    try {
+      final docsToDelete = [];
+      FirebaseFirestore firestore = FirebaseFirestore.instance;
+      await firestore
+          .collection('sessions')
+          .where('doctor_id', isEqualTo: doctorId)
+          .where('uid', isEqualTo: this.userId)
+          .get()
+          .then((value) => value.docs.forEach((element) {
+                docsToDelete.add(element.reference.id);
+              }));
 
+      for (String doc in docsToDelete) {
+        await firestore
+            .collection('sessions')
+            .doc(doc)
+            .delete()
+            .then((value) => print("Deleted $doc"));
+      }
+      _users.removeWhere((element) => element.id == doctorId);
+      notifyListeners();
+    } catch (e) {
+      throw e;
+    }
   }
 }
