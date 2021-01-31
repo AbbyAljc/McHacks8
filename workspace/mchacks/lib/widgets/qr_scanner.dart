@@ -1,30 +1,21 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:mchacks/provider/auth.dart';
-import 'package:mchacks/widgets/app_drawer.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:qrscan/qrscan.dart' as scanner;
 
-class QRScannerScreen extends StatelessWidget {
-  String _barcodeResult = '';
+class QRScanButton extends StatelessWidget {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
-
   @override
   Widget build(BuildContext context) {
     final authData = Provider.of<Auth>(context);
-    return Scaffold(
-      drawer: AppDrawer(),
-      appBar: AppBar(
-        title: const Text('QR Scanner'),
+
+    return FloatingActionButton(
+      child: Icon(
+        Icons.qr_code,
       ),
-      body: Container(),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(
-          Icons.qr_code,
-        ),
-        onPressed: () => _scan(authData.userId),
-      ),
+      onPressed: () => _scan(authData.userId),
     );
   }
 
@@ -35,8 +26,6 @@ class QRScannerScreen extends StatelessWidget {
       print('Nothing returned');
     } else {
       updatingCurrentSession(barcode, userId);
-      this._barcodeResult = barcode;
-      print(_barcodeResult);
     }
   }
 

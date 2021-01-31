@@ -5,7 +5,6 @@ import 'package:mchacks/screens/auth_screen.dart';
 import 'package:mchacks/screens/authorized_data_handlers.dart';
 import 'package:mchacks/screens/history_screen.dart';
 import 'package:mchacks/screens/prescription_detail_screen.dart';
-import 'package:mchacks/screens/qr_scanner_screen.dart';
 import 'package:mchacks/screens/splash_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -76,7 +75,7 @@ class MainApp extends StatelessWidget {
               fontFamily: 'Lato',
             ),
             home: auth.isAuth
-                ? QRScannerScreen()
+                ? HistoryScreen()
                 : FutureBuilder(
                     future: auth.tryAutoLogin(),
                     builder: (ctx, authResultSnapshot) =>
@@ -89,8 +88,7 @@ class MainApp extends StatelessWidget {
               PrescriptionDetailScreen.routeName: (ctx) =>
                   PrescriptionDetailScreen(),
               AuthorizedDataHandlers.routeName: (ctx) => AuthorizedDataHandlers(),
-              // UserProductsScreen.routeName: (ctx) => UserProductsScreen(),
-              // EditProductScreen.routeName: (ctx) => EditProductScreen(),
+
             },
           ),
         ));

@@ -18,14 +18,6 @@ class AppDrawer extends StatelessWidget {
           ),
           Divider(),
           ListTile(
-            leading: Icon(Icons.qr_code),
-            title: Text('QR Scanner'),
-            onTap: () {
-              Navigator.of(context).pushReplacementNamed('/');
-            },
-          ),
-          Divider(),
-          ListTile(
             leading: Icon(Icons.history),
             title: Text('Prescriptions'),
             onTap: () {
@@ -35,7 +27,7 @@ class AppDrawer extends StatelessWidget {
           Divider(),
           ListTile(
             leading: Icon(Icons.account_circle),
-            title: Text('Profile'),
+            title: Text('Manage Access'),
             onTap: () {
               Navigator.of(context)
                   .pushReplacementNamed(AuthorizedDataHandlers.routeName);
