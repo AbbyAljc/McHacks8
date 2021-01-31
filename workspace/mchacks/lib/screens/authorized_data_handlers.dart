@@ -1,21 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:mchacks/provider/prescription.dart';
-import 'package:mchacks/provider/prescriptions.dart';
-import 'package:mchacks/screens/splash_screen.dart';
+import 'package:mchacks/provider/users.dart';
 import 'package:mchacks/widgets/app_drawer.dart';
-import 'package:mchacks/widgets/horizontal_divider.dart';
 import 'package:mchacks/widgets/prescription_list.dart';
-import 'package:mchacks/widgets/prescription_tile.dart';
+import 'package:mchacks/widgets/user_list.dart';
 import 'package:provider/provider.dart';
 
-class HistoryScreen extends StatefulWidget {
-  static const String routeName = '/history';
+import 'splash_screen.dart';
 
+class AuthorizedDataHandlers extends StatefulWidget {
+  static const routeName = '/manage-access';
   @override
-  _HistoryScreenState createState() => _HistoryScreenState();
+  _AuthorizedDataHandlersState createState() => _AuthorizedDataHandlersState();
 }
 
-class _HistoryScreenState extends State<HistoryScreen> {
+class _AuthorizedDataHandlersState extends State<AuthorizedDataHandlers> {
   var _isInit = true;
   var _isLoading = false;
 
@@ -31,7 +29,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
       setState(() {
         _isLoading = true;
       });
-      Provider.of<Prescriptions>(context).fetchAndSetPrescriptions().then((_) {
+      Provider.of<Users>(context).fetchAndSetUsers().then((_) {
         setState(() {
           _isLoading = false;
         });
@@ -46,9 +44,9 @@ class _HistoryScreenState extends State<HistoryScreen> {
     return Scaffold(
       drawer: AppDrawer(),
       appBar: AppBar(
-        title: const Text('Prescriptions'),
+        title: const Text('Authorized Data Access'),
       ),
-      body: _isLoading ? SplashScreen() : PrescriptionList(),
+      body: _isLoading ? SplashScreen() : UserList(),
     );
   }
 }

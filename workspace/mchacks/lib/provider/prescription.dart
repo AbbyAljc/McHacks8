@@ -4,8 +4,10 @@ class Prescription {
   final String description;
   final DateTime expiry;
   final String authoriztionId;
+  final List<dynamic> directions;
+  final String refills;
 
-  Prescription({this.authoriztionId, this.description, this.expiry, this.id, this.name});
+  Prescription({this.refills, this.authoriztionId, this.description, this.expiry, this.id, this.name, this.directions});
 
   
 }
