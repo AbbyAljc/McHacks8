@@ -1,16 +1,46 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:mchacks/provider/prescriptions.dart';
 import 'package:mchacks/screens/auth_screen.dart';
+import 'package:mchacks/screens/authorized_data_handlers.dart';
 import 'package:mchacks/screens/history_screen.dart';
+import 'package:mchacks/screens/prescription_detail_screen.dart';
 import 'package:mchacks/screens/qr_scanner_screen.dart';
+import 'package:mchacks/screens/splash_screen.dart';
 import 'package:provider/provider.dart';
 
 import './provider/auth.dart';
 import 'provider/prescription.dart';
+import 'provider/users.dart';
 
-void main() => runApp(PocketPrescription());
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  return runApp(PocketPrescription());
+}
 
 class PocketPrescription extends StatelessWidget {
+  final Future<FirebaseApp> _initialization = Firebase.initializeApp();
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+        future: _initialization,
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            return Container();
+          }
+
+          // Once complete, show your application
+          if (snapshot.connectionState == ConnectionState.done) {
+            return MainApp();
+          }
+
+          // Otherwise, show something whilst waiting for initialization to complete
+          return SplashScreen();
+        });
+  }
+}
+
+class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -19,38 +49,21 @@ class PocketPrescription extends StatelessWidget {
             value: Auth(),
           ),
           ChangeNotifierProxyProvider<Auth, Prescriptions>(
-            update: (ctx, auth, previousPrescriptions) => Prescriptions(
-              authToken: auth.token,
-              userId: auth.userId,
-              prescriptions: 
-              // previousPrescriptions == null
-                  // ?
-                   [
-                      Prescription(
-                        authoriztionId: '1',
-                        description: 'Ritalin for 3 doses of 200mg',
-                        expiry: DateTime(2021, 02, 12),
-                        id: '1',
-                        name: 'Ritalin',
-                      ),
-                      Prescription(
-                        authoriztionId: '1',
-                        description:
-                            'Xanax for 7 doses of 25mg to be taken in 6 hour intervals twice a day',
-                        expiry: DateTime(2021, 02, 18),
-                        id: '2',
-                        name: 'Xanax',
-                      ),
-                      Prescription(
-                        authoriztionId: '2',
-                        description:
-                            'Concerta for 4 doses of 25mg to be taken twice a day',
-                        expiry: DateTime(2022, 12, 18),
-                        id: '3',
-                        name: 'Concerta',
-                      )
-                    ]
-                  // : previousPrescriptions.prescriptions,
+            update: (context, auth, previousPrescriptions) => Prescriptions(
+              auth.token,
+              previousPrescriptions == null
+                  ? []
+                  : previousPrescriptions.prescriptions,
+              auth.userId,
+            ),
+          ),
+          ChangeNotifierProxyProvider<Auth, Users>(
+            update: (context, auth, previousUsers) => Users(
+              auth.token,
+              previousUsers == null
+                  ? []
+                  : previousUsers.users,
+              auth.userId,
             ),
           )
         ],
@@ -62,11 +75,20 @@ class PocketPrescription extends StatelessWidget {
               accentColor: Colors.deepOrange,
               fontFamily: 'Lato',
             ),
-            home: auth.isAuth ? QRScannerScreen() : AuthScreen(),
+            home: auth.isAuth
+                ? QRScannerScreen()
+                : FutureBuilder(
+                    future: auth.tryAutoLogin(),
+                    builder: (ctx, authResultSnapshot) =>
+                        authResultSnapshot.connectionState ==
+                                ConnectionState.waiting
+                            ? SplashScreen()
+                            : AuthScreen()),
             routes: {
               HistoryScreen.routeName: (ctx) => HistoryScreen(),
-              // ProductDetailScreen.routeName: (ctx) => ProductDetailScreen(),
-              // OrdersScreen.routeName: (ctx) => OrdersScreen(),
+              PrescriptionDetailScreen.routeName: (ctx) =>
+                  PrescriptionDetailScreen(),
+              AuthorizedDataHandlers.routeName: (ctx) => AuthorizedDataHandlers(),
               // UserProductsScreen.routeName: (ctx) => UserProductsScreen(),
               // EditProductScreen.routeName: (ctx) => EditProductScreen(),
             },

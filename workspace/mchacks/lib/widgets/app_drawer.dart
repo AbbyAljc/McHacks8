@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mchacks/provider/prescription.dart';
+import 'package:mchacks/screens/authorized_data_handlers.dart';
 import 'package:mchacks/screens/history_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -36,8 +37,8 @@ class AppDrawer extends StatelessWidget {
             leading: Icon(Icons.account_circle),
             title: Text('Profile'),
             onTap: () {
-              // Navigator.of(context)
-                  // .pushReplacementNamed(UserProductsScreen.routeName);
+              Navigator.of(context)
+                  .pushReplacementNamed(AuthorizedDataHandlers.routeName);
             },
           ),
           Divider(),
