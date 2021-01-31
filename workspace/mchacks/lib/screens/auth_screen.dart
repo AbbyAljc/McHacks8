@@ -23,8 +23,8 @@ class AuthScreen extends StatelessWidget {
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [
-                  Color.fromRGBO(134, 194, 156, 1).withOpacity(0.9),
-                  Color.fromRGBO(144, 238, 144, 1).withOpacity(0.5),
+                  Color.fromRGBO(255, 255, 255, 1).withOpacity(0.9),
+                  Color.fromRGBO(0, 150, 255, 1).withOpacity(0.5),
                 ],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
@@ -47,7 +47,7 @@ class AuthScreen extends StatelessWidget {
                           EdgeInsets.symmetric(vertical: 8.0, horizontal: 20.0),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
-                        color: Colors.green.shade900,
+                        color: Colors.blue.shade900,
                         boxShadow: [
                           BoxShadow(
                             blurRadius: 8,
