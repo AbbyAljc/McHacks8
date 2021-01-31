@@ -71,8 +71,8 @@ class MainApp extends StatelessWidget {
           builder: (ctx, auth, _) => MaterialApp(
             debugShowCheckedModeBanner: false,
             theme: ThemeData(
-              primarySwatch: Colors.green,
-              accentColor: Colors.deepOrange,
+              primaryColor:  Color.fromRGBO(00, 100, 255, 1),
+              accentColor: Color.fromRGBO(0, 100, 255, 1),
               fontFamily: 'Lato',
             ),
             home: auth.isAuth
